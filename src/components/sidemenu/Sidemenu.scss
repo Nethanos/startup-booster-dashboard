@@ -1,0 +1,14 @@
+.sidemenuContent {
+    background: #252B33;
+    height: 100vh;
+    width: 100%;
+}
+
+@media (max-width: 600px) 
+{
+  .sidemenuContent 
+   {
+    width: 100vw;
+    height: 8vh;
+   }
+}
