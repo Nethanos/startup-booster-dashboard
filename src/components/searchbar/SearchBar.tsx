@@ -9,14 +9,8 @@ type SearchBarProps = {
 
 export const SearchBar = (searchBarProps: SearchBarProps) => {
 
-
   const [owner, setOwner] = useState("");
   const [repository, setRepository] = useState("");
-
-  const handleInputChange = (event: FormEvent<HTMLInputElement>, setterFunction: Function): void => {
-    setterFunction(event?.currentTarget?.value);
-  };
-
 
   const searchForRepository = async (event: any): Promise<void> => {
     if (event.charCode === 13) {
@@ -33,17 +27,16 @@ export const SearchBar = (searchBarProps: SearchBarProps) => {
         <input
           className="userOrOrgInput"
           value={owner}
-          onChange={(e) => handleInputChange(e, setOwner)}
+          onChange={(e) => setOwner(e?.target.value)}
           placeholder="User or Organization"
           type="text"
         />
-        {owner}
         <input
           type="text"
           className="repoInput"
           value={repository}
           onKeyPress={searchForRepository}
-          onChange={(e) => handleInputChange(e, setRepository)}
+          onChange={(e) => setRepository(e?.target?.value)}
           placeholder="Repository"
         />
       </div>
