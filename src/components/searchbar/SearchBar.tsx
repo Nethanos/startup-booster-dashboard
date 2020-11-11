@@ -13,13 +13,10 @@ export const SearchBar = (searchBarProps: SearchBarProps) => {
   const [owner, setOwner] = useState("");
   const [repository, setRepository] = useState("");
 
-  const handleOwnerChange = (event: FormEvent<HTMLInputElement>): void => {
-    setOwner(event?.currentTarget?.value);
+  const handleInputChange = (event: FormEvent<HTMLInputElement>, setterFunction: Function): void => {
+    setterFunction(event?.currentTarget?.value);
   };
 
-  const handleRepositoryChange = (event: FormEvent<HTMLInputElement>): void => {
-    setRepository(event?.currentTarget?.value);
-  };
 
   const searchForRepository = async (event: any): Promise<void> => {
     if (event.charCode === 13) {
@@ -36,16 +33,17 @@ export const SearchBar = (searchBarProps: SearchBarProps) => {
         <input
           className="userOrOrgInput"
           value={owner}
-          onChange={handleOwnerChange}
+          onChange={(e) => handleInputChange(e, setOwner)}
           placeholder="User or Organization"
           type="text"
         />
+        {owner}
         <input
           type="text"
           className="repoInput"
           value={repository}
           onKeyPress={searchForRepository}
-          onChange={handleRepositoryChange}
+          onChange={(e) => handleInputChange(e, setRepository)}
           placeholder="Repository"
         />
       </div>
