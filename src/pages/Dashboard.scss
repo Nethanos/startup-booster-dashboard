@@ -1,0 +1,24 @@
+.mainContent {
+    display: grid;
+    grid-template-columns: 0.1fr 1.8fr;
+    grid-template-rows: 0.2fr 1.8fr;
+    grid-template-areas:
+      "sidemenu searchbar"
+      "sidemenu dashboard";
+  }
+  .sideMenu { grid-area: sidemenu; }
+  .searchBar { grid-area: searchbar; }
+  .dashboard { grid-area: dashboard; }
+  
+  
+  @media (max-width: 700px) 
+  {
+    .App {
+    display: grid;
+    grid-template-areas:
+      "sidemenu sidemenu"
+      "searchbar searchbar"
+      "dashboard dashboard";
+  }
+  }
+  
