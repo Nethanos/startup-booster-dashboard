@@ -3,7 +3,13 @@ import { requestQuery } from "../../middlewares/ApolloClient";
 import repositoryRequestQuery from './SearchBar.query';
 import "./SearchBar.scss";
 
-export const SearchBar = () => {
+type SearchBarProps = {
+  onGithubRequest: Function
+}
+
+export const SearchBar = (searchBarProps: SearchBarProps) => {
+
+
   const [owner, setOwner] = useState("");
   const [repository, setRepository] = useState("");
 
@@ -20,7 +26,7 @@ export const SearchBar = () => {
       const { data } = await requestQuery(
         repositoryRequestQuery(owner, repository)
       );
-      console.log(data);
+        searchBarProps.onGithubRequest(data);
     }
   };
 

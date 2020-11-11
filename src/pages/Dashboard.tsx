@@ -4,6 +4,12 @@ import { Sidemenu } from "../components/sidemenu/Sidemenu";
 import "./Dashboard.scss";
 
 export const Dashboard = () => {
+
+
+  const handleRequest = (githubRequest:any) => {
+  }
+
+
   return (
     <>
       <div className="mainContent">
@@ -12,7 +18,7 @@ export const Dashboard = () => {
         </div>
 
         <div className="searchBar">
-          <SearchBar></SearchBar>
+          <SearchBar onGithubRequest={handleRequest}></SearchBar>
         </div>
 
         <div className="dashboard">
