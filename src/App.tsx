@@ -8,17 +8,9 @@ import './App.scss'
 function App() {
   return (
     <div className="App">
-      <div className="sidemenu">
-      <Sidemenu></Sidemenu>
 
-      </div>
-     <div className="searchbar">
-     <SearchBar></SearchBar>
-     </div>
-     <div className="dashboard">
      <Dashboard></Dashboard>
 
-     </div>
     </div>
   );
 }
