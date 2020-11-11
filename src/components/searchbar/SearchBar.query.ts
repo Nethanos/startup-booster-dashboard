@@ -9,7 +9,7 @@ export default function repositoryRequestQuery(owner: string, name: string): str
           }
         },
         
-        mergedPullRequests: pullRequests(last: 100, states: MERGED) {
+        MergedPullRequests: pullRequests(last: 100, states: MERGED) {
           nodes {
             createdAt,
             mergedAt,
