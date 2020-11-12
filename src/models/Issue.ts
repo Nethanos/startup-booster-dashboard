@@ -1,4 +1,4 @@
 export type Issue = {
     createdAt: Date;
-    ClosedAt: Date;
+    closedAt: Date;
 }
