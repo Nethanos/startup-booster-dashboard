@@ -1,6 +1,6 @@
 export default function repositoryRequestQuery(owner: string, name: string): string {
     return `query getDocuments { 
-      repository(owner: "micronaut-projects", name: "micronaut-core") {
+      repository(owner: "${owner}", name: "${name}") {
          Issues: issues(last: 100, filterBy: {states: CLOSED}) {
                 totalCount,
                 nodes {
