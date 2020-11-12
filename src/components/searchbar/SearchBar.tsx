@@ -1,5 +1,6 @@
-import React, { FormEvent, useState } from "react";
+import React, { useState } from "react";
 import { requestQuery } from "../../middlewares/ApolloClient";
+import handleGithubData from "../../middlewares/GithubApiHandler";
 import repositoryRequestQuery from './SearchBar.query';
 import "./SearchBar.scss";
 
@@ -17,7 +18,8 @@ export const SearchBar = (searchBarProps: SearchBarProps) => {
       const { data } = await requestQuery(
         repositoryRequestQuery(owner, repository)
       );
-        searchBarProps.onGithubRequest(data);
+       const githubData = handleGithubData(data);
+       searchBarProps.onGithubRequest(githubData)
     }
   };
 
