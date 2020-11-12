@@ -14,22 +14,22 @@ export interface DateConverted {
 export default function convertMiliseconds(miliseconds: number, format?: string): number | DateConverted  {
     let dateConverted = {} as DateConverted;
     
-    const total_seconds = Math.floor(miliseconds / 1000);
-    const total_minutes = Math.floor(total_seconds / 60);
-    const total_hours = Math.floor(total_minutes / 60);
-    dateConverted.days = Math.floor(total_hours / 24);
+    const totalSeconds = Math.floor(miliseconds / 1000);
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const totalHours = Math.floor(totalMinutes / 60);
+    dateConverted.days = Math.floor(totalHours / 24);
   
-    dateConverted.seconds = total_seconds % 60;
-    dateConverted.minutes = total_minutes % 60;
-    dateConverted.hours = total_hours % 24;
+    dateConverted.seconds = totalSeconds % 60;
+    dateConverted.minutes = totalMinutes % 60;
+    dateConverted.hours = totalHours % 24;
     
     switch(format) {
       case 's':
-          return total_seconds;
+          return totalSeconds;
       case 'm':
-          return total_minutes;
+          return totalMinutes;
       case 'h':
-          return total_hours;
+          return totalHours;
       case 'd':
           return dateConverted.days;
       default:
