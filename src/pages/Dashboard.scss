@@ -10,6 +10,15 @@
   .searchBar { grid-area: searchbar; }
   .dashboard { grid-area: dashboard; }
   
+
+  .pr-by-size {
+    background: white;
+    border-radius: 1%;
+    width: 70vw;
+    height: 60vh;
+    padding: 0px !important;
+
+  }
   
   @media (max-width: 700px) 
   {
@@ -19,6 +28,9 @@
       "sidemenu sidemenu"
       "searchbar searchbar"
       "dashboard dashboard";
+  }
+  .pr-by-size {
+    width: 100vw;
   }
   }
   
