@@ -19,9 +19,9 @@ export const Infobox = (infoBoxProps: InfoboxProps) => {
 
   return (
     <>
-      <div className="infoboxCard">
-        <div className="header">{infoBoxProps.title}</div>
-        <div>{timeString}</div>
+      <div className="card infoboxCard col-sm-12 shadow-sm p-3 mb-5 bg-white rounded">
+        <div className="chartTitle">{infoBoxProps.title}</div>
+        <div className="card-body contentBody d-flex align-self-center">{timeString}</div>
       </div>
     </>
   );
