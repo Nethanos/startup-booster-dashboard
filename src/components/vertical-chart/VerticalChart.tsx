@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Chart from "chart.js";
+import './VerticalChart.scss'
 
 type VerticalChartProps = {
   chartData: any;
@@ -8,16 +9,14 @@ type VerticalChartProps = {
   chartId: string;
 };
 
-let chart = {} as Chart;
 
 export const VerticalChart = (props: VerticalChartProps) => {
   function mountChart(chartData: any) {
     const chartRef = document.getElementById(props.chartId) as HTMLCanvasElement;
+    if(chartRef) {
+      new Chart(chartRef, props.buildChartFunction(chartData));
 
-    if (chart.canvas) {
-      chart.destroy();
     }
-    chart = new Chart(chartRef, props.buildChartFunction(chartData));
   }
 
   useEffect(() => {
@@ -26,12 +25,13 @@ export const VerticalChart = (props: VerticalChartProps) => {
 
   return (
     <>
-      <div className="card">
-        <div className="card-header">
+        <div className="chartTitle">
           {props.title}
         </div>
-        <canvas id={props.chartId}></canvas>
-      </div>
+        <div className="card-body"> 
+        <canvas className="canvas" id={props.chartId}></canvas>
+
+        </div>
     </>
   );
 };
