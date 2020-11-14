@@ -12,10 +12,8 @@ import { MergedPullRequest } from "../models/MergedPullRequest";
 import "./Dashboard.scss";
 
 export const Dashboard = () => {
-
-
   /**
-   * 
+   *
    * @description responsible for send the github data to each
    * component
    * @param githubData - wrapper of required data to use application
@@ -24,13 +22,13 @@ export const Dashboard = () => {
     setAverageIssueCloseTime(githubData.issueList);
     setAveragePullRequestMergeTime(githubData.mergedPullRequestList);
     setIssueListPerMonth(githubData.issueListPerMonth);
+    setPullRequestListPerMonth(githubData.pullRequestListPerMonth);
   }
 
-
   /**
-   * @description states of attributes that holds github request data 
+   * @description states of attributes that holds github request data
    * already handled by application
-   * 
+   *
    */
   const [averageIssueCloseTime, setAverageIssueCloseTime] = useState(
     [] as Array<Issue>
@@ -41,11 +39,15 @@ export const Dashboard = () => {
     setAveragePullRequestMergeTime,
   ] = useState([] as Array<DetailedMergedPullRequest>);
 
-  const [issueListPetMonth, setIssueListPerMonth] = useState([] as Array<Issue>)
+  const [issueListPetMonth, setIssueListPerMonth] = useState(
+    [] as Array<Issue>
+  );
 
-
+  const [pullRequestListPerMonth, setPullRequestListPerMonth] = useState(
+    [] as Array<MergedPullRequest>
+  );
   /**
-   * @description Responsible for calculate issue average close time 
+   * @description Responsible for calculate issue average close time
    * @param issueList - last 100 issues from githubApi
    */
   function averageIssueCloseTimeFunction(issueList: Array<Issue>) {
@@ -53,8 +55,8 @@ export const Dashboard = () => {
 
     issueList.forEach((issue) => {
       totalIssueMilisseconds +=
-        (new Date(issue.closedAt).getTime() -
-        new Date(issue.createdAt).getTime());
+        new Date(issue.closedAt).getTime() -
+        new Date(issue.createdAt).getTime();
     });
     return convertMiliseconds(totalIssueMilisseconds / issueList.length);
   }
@@ -70,8 +72,8 @@ export const Dashboard = () => {
 
     pullRequestList.forEach((pullRequestList) => {
       totalIssueMilisseconds +=
-        (new Date(pullRequestList.mergedAt).getTime() -
-        new Date(pullRequestList.createdAt).getTime());
+        new Date(pullRequestList.mergedAt).getTime() -
+        new Date(pullRequestList.createdAt).getTime();
     });
     return convertMiliseconds(totalIssueMilisseconds / pullRequestList.length);
   }
@@ -90,11 +92,13 @@ export const Dashboard = () => {
         <div className="dashboard">
           <div className="container">
             <div className="row">
-              <div className="col-sm-12 align-items-center card">
-                <PullRequestVerticalChart mergedPullRequestList={averagePullRequestMergeTime}></PullRequestVerticalChart>
+              <div className="col-sm-12 align-items-center pr-by-size shadow-sm p-3 mb-5 bg-white rounded">
+                <PullRequestVerticalChart
+                  mergedPullRequestList={averagePullRequestMergeTime}
+                ></PullRequestVerticalChart>
               </div>
 
-              <div id="issuesInfobox" className="col-sm-12 col-md-6 mr-auto card align-items-center">
+              <div id="issuesInfobox" className="col-sm-12 col-md-6">
                 <Infobox
                   title="Average Issue Close Time"
                   info={averageIssueCloseTime}
@@ -102,7 +106,7 @@ export const Dashboard = () => {
                 ></Infobox>
               </div>
 
-              <div id="prInfoBox" className="col-sm-12 col-md-6 mr-auto card align-items-center">
+              <div id="prInfoBox" className="col-sm-12 col-md-6">
                 <Infobox
                   title="Average Pull Request Merge Time"
                   info={averagePullRequestMergeTime}
@@ -110,10 +114,14 @@ export const Dashboard = () => {
                 ></Infobox>
               </div>
 
-              <div className="col-sm-12 align-items-center card">
-              <AveragePerMonthChart issueList={issueListPetMonth}></AveragePerMonthChart>
-              </div>
-
+              {
+                <div className="col-sm-12 align-items-center card">
+                  <AveragePerMonthChart
+                    pullRequestList={pullRequestListPerMonth}
+                    issueList={issueListPetMonth}
+                  ></AveragePerMonthChart>
+                </div>
+              }
             </div>
           </div>
         </div>
