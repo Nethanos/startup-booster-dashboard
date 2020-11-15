@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { requestQuery } from "../../middlewares/ApolloClient";
 import handleGithubData from "../../middlewares/GithubApiHandler";
+import { Loading } from "../loading/Loading";
 import repositoryRequestQuery from './SearchBar.query';
 import "./SearchBar.scss";
 
@@ -10,22 +11,27 @@ type SearchBarProps = {
 
 export const SearchBar = (searchBarProps: SearchBarProps) => {
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const [owner, setOwner] = useState("");
   const [repository, setRepository] = useState("");
 
   const searchForRepository = async (event: any): Promise<void> => {
+    setIsLoading(true);
     if (event.charCode === 13) {
-      const { data } = await requestQuery(
-        repositoryRequestQuery(owner, repository)
-      );
-       const githubData = handleGithubData(data);
-       searchBarProps.onGithubRequest(githubData)
+    requestQuery(repositoryRequestQuery(owner, repository)).then(data => {
+      const githubData = handleGithubData(data);
+      setIsLoading(false); 
+      searchBarProps.onGithubRequest(githubData);
+    }).catch(errors => {
+      console.error(errors);
+    }).finally(() => setIsLoading(false));
     }
   };
 
   return (
     <>
-      <div className="searchBarContent shadow-sm p-3 mb-5 bg-white rounded">
+      <div className="searchBarContent shadow-sm p-3 bg-white rounded">
         <input
           className="userOrOrgInput"
           value={owner}
@@ -41,6 +47,10 @@ export const SearchBar = (searchBarProps: SearchBarProps) => {
           onChange={(e) => setRepository(e?.target?.value)}
           placeholder="Repository"
         />
+      </div>
+      <div className="loadingContainer mb-5">
+      {isLoading && <Loading></Loading>}
+
       </div>
     </>
   );
