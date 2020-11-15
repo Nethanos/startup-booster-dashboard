@@ -2,7 +2,7 @@ export default function repositoryRequestQuery(owner: string, name: string): str
   const lastMonth = new Date();
   lastMonth.setMonth(lastMonth.getMonth() - 1);
     return `query getDocuments { 
-      repository(owner: "${owner}", name: "${name}") {
+      repository(owner: "${owner.toLowerCase().replace(/\s/g,'')}", name: "${name.toLowerCase().replace(/\s/g,'')}") {
          Issues: issues(last: 100, filterBy: {states: CLOSED}) {
                 totalCount,
                 nodes {
