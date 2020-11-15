@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import Chart from "chart.js";
-import './VerticalChart.scss'
+import "./VerticalChart.scss";
 
 type VerticalChartProps = {
   chartData: any;
   buildChartFunction: Function;
-  title: string;
+  title?: string;
   chartId: string;
 };
 
-
 export const VerticalChart = (props: VerticalChartProps) => {
   function mountChart(chartData: any) {
-    const chartRef = document.getElementById(props.chartId) as HTMLCanvasElement;
-    if(chartRef) {
+    const chartRef = document.getElementById(
+      props.chartId
+    ) as HTMLCanvasElement;
+    if (chartRef) {
       new Chart(chartRef, props.buildChartFunction(chartData));
-
     }
   }
 
@@ -25,13 +25,11 @@ export const VerticalChart = (props: VerticalChartProps) => {
 
   return (
     <>
-        <div className="chartTitle">
-          {props.title}
-        </div>
-        <div className="card-body"> 
-        <canvas className="canvas" id={props.chartId}></canvas>
+      {props.title && <div className="chartTitle"> {props.title} </div>}
 
-        </div>
+      <div className="card-body">
+        <canvas className="canvas" id={props.chartId}></canvas>
+      </div>
     </>
   );
 };
