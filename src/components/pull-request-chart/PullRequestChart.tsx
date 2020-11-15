@@ -1,16 +1,22 @@
 import { ChartConfiguration } from "chart.js";
 import React, { useEffect, useState } from "react";
 import convertMiliseconds from "../../helpers/DateConverter";
-import { DetailedMergedPullRequest } from "../../models/DetailedMergedPullRequest";
+import { MergedPullRequest } from "../../models/MergedPullRequest";
 import {PullRequestChart,PullRequestListBySize } from "../../models/PullRequestListBySize";
 import { NoDataDisplay } from "../no-data/NoData";
 import { VerticalChart } from "../vertical-chart/VerticalChart";
 import './PullRequestChart.scss'
 
 type PullRequestChartProps = {
-  mergedPullRequestList: Array<DetailedMergedPullRequest>;
+  mergedPullRequestList: Array<MergedPullRequest>;
 };
 
+
+/**
+ * @description responsible to build chartConfiguration object 
+ * as a param of Chart Object from chart.js
+ * @param pullRequestChartData 
+ */
 function buildChartOptions(pullRequestChartData: any): ChartConfiguration {
   
   const { smallPullRequest, mediumPullRequest, largePullRequest} = pullRequestChartData;
@@ -84,8 +90,14 @@ function buildChartOptions(pullRequestChartData: any): ChartConfiguration {
 }
 
 export const PullRequestVerticalChart = (props: PullRequestChartProps) => {
-  function calculatePrSizeAndTime( prChart: PullRequestChart, pr: DetailedMergedPullRequest ) {
-    prChart.pullRequestTotalCount++; //totalCount
+
+  /**
+   * @description responsible for calculate de average and format to days
+   * @param prChart - type of chart model(small, medium or large)
+   * @param pr - pull request data
+   */
+  function calculatePrSizeAndTime( prChart: PullRequestChart, pr: MergedPullRequest ) {
+    prChart.pullRequestTotalCount++;
     prChart.pullRequestTimeInMili =
       new Date(pr.mergedAt).getTime() - new Date(pr.createdAt).getTime();
     prChart.pullRequestTimeString = convertMiliseconds(prChart.pullRequestTimeInMili, "h" ).toString();
@@ -93,8 +105,14 @@ export const PullRequestVerticalChart = (props: PullRequestChartProps) => {
 
   const [pullRequestChartData, setPullRequestChartData] = useState( {} as PullRequestListBySize);
 
+
+  /**
+   * @description responsible for spread the full pull request data in a
+   * list with each size
+   * @param pullRequestList 
+   */
   function spreadPullRequestsBySize(
-    pullRequestList: Array<DetailedMergedPullRequest>
+    pullRequestList: Array<MergedPullRequest>
   ): void {
     let pullRequestData = new PullRequestListBySize();
 
@@ -111,7 +129,6 @@ export const PullRequestVerticalChart = (props: PullRequestChartProps) => {
       }
     });
 
-    //calculate media
 
     setPullRequestChartData(pullRequestData);
   }

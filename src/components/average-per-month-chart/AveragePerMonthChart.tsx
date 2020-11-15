@@ -16,6 +16,8 @@ type AveragePerMonthChartProps = {
 export const AveragePerMonthChart = (props: AveragePerMonthChartProps) => {
   const [selectedChart, setSelectedChart] = useState("ISSUES");
 
+
+
   const commonChartOptions: ChartOptions = {
     elements: {
       point: {
@@ -45,6 +47,10 @@ export const AveragePerMonthChart = (props: AveragePerMonthChartProps) => {
     return `${date.getDate()}/${date.getMonth()}`;
   }
 
+  /**
+   * @description responsible for create pull requests chart data
+   * @param data 
+   */
   function buildMonthPRData(data: MonthChartData) {
     let monthChartData = new MonthChartData();
 
@@ -113,6 +119,11 @@ export const AveragePerMonthChart = (props: AveragePerMonthChartProps) => {
     };
   }
 
+  
+  /**
+   * @description responsible for create issues chart data
+   * @param data 
+   */
   function buildMonthIssueChartData(): ChartConfiguration {
     let monthChartData = new MonthChartData();
 
@@ -165,6 +176,12 @@ export const AveragePerMonthChart = (props: AveragePerMonthChartProps) => {
     buildMonthIssueChartData();
   }, [props.issueList, props.pullRequestList]);
 
+
+
+  /**
+   * @description responsible for load a  chart based on
+   * user choice
+   */
   function loadSelectedChart() {
     return (
       <>

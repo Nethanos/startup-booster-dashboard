@@ -14,9 +14,8 @@ export const VerticalChart = (props: VerticalChartProps) => {
     const chartRef = document.getElementById(
       props.chartId
     ) as HTMLCanvasElement;
-    if (chartRef) {
       new Chart(chartRef, props.buildChartFunction(chartData));
-    }
+    
   }
 
   useEffect(() => {
