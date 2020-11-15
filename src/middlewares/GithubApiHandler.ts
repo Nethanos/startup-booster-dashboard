@@ -4,8 +4,8 @@ import { MergedPullRequest } from "../models/MergedPullRequest";
 
 export default function handleGithubData(githubData: any): GithubQueryData {
 
-    const { Issues, MergedPullRequests, IssuesPerMonth } = githubData.repository;
-    const pullRequestListPerMonth =  githubData.pullRequestsPerMonth.nodes
+    const { Issues, MergedPullRequests, IssuesPerMonth } = githubData.data.repository;
+    const pullRequestListPerMonth =  githubData.data.pullRequestsPerMonth.nodes
     
     const issueList: Array<Issue> = Issues.nodes;
 
