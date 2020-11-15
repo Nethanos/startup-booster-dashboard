@@ -5,7 +5,6 @@ import { PullRequestVerticalChart } from "../components/pull-request-chart/PullR
 import { SearchBar } from "../components/searchbar/SearchBar";
 import { Sidemenu } from "../components/sidemenu/Sidemenu";
 import convertMiliseconds from "../helpers/DateConverter";
-import { DetailedMergedPullRequest } from "../models/DetailedMergedPullRequest";
 import { GithubQueryData } from "../models/GithubQueryData";
 import { Issue } from "../models/Issue";
 import { MergedPullRequest } from "../models/MergedPullRequest";
@@ -37,7 +36,7 @@ export const Dashboard = () => {
   const [
     averagePullRequestMergeTime,
     setAveragePullRequestMergeTime,
-  ] = useState([] as Array<DetailedMergedPullRequest>);
+  ] = useState([] as Array<MergedPullRequest>);
 
   const [issueListPetMonth, setIssueListPerMonth] = useState(
     [] as Array<Issue>
