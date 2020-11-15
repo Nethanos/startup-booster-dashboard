@@ -17,8 +17,8 @@ export const SearchBar = (searchBarProps: SearchBarProps) => {
   const [repository, setRepository] = useState("");
 
   const searchForRepository = async (event: any): Promise<void> => {
-    setIsLoading(true);
     if (event.charCode === 13) {
+      setIsLoading(true);
     requestQuery(repositoryRequestQuery(owner, repository)).then(data => {
       const githubData = handleGithubData(data);
       setIsLoading(false); 
