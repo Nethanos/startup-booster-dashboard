@@ -115,7 +115,7 @@ export const Dashboard = () => {
               </div>
 
               {
-                <div className="col-sm-12 align-items-center card">
+                <div className="col-sm-12 align-items-center pr-by-size shadow-sm p-3 mb-5 bg-white rounded">
                   <AveragePerMonthChart
                     pullRequestList={pullRequestListPerMonth}
                     issueList={issueListPetMonth}
