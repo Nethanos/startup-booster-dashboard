@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import mountTimeString from "../../helpers/TimeStringFactory";
+import { NoDataDisplay } from "../no-data/NoData";
 import "./Infobox.scss";
 
 type InfoboxProps = {
@@ -21,7 +22,9 @@ export const Infobox = (infoBoxProps: InfoboxProps) => {
     <>
       <div className="card infoboxCard col-sm-12 shadow-sm p-3 mb-5 bg-white rounded">
         <div className="chartTitle">{infoBoxProps.title}</div>
-        <div className="card-body contentBody d-flex align-self-center">{timeString}</div>
+        <div className="card-body contentBody d-flex align-self-center">
+          {timeString ?  timeString  : <NoDataDisplay></NoDataDisplay>}
+        </div>
       </div>
     </>
   );
