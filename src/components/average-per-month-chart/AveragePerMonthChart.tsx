@@ -4,6 +4,7 @@ import { getExactDate } from "../../helpers/DateConverter";
 import { Issue } from "../../models/Issue";
 import { MergedPullRequest } from "../../models/MergedPullRequest";
 import { MonthChartData } from "../../models/MonthChartData";
+import { NoDataDisplay } from "../no-data/NoData";
 import { VerticalChart } from "../vertical-chart/VerticalChart";
 import "./AveragePerMonthChart.scss";
 
@@ -175,7 +176,9 @@ export const AveragePerMonthChart = (props: AveragePerMonthChartProps) => {
             aria-label="Basic example"
           >
             <button
-              className={`col-md-2 wizard ${selectedChart === 'ISSUES' ? "selected" : "unselected"}`}
+              className={`col-md-2 wizard ${
+                selectedChart === "ISSUES" ? "selected" : "unselected"
+              }`}
               onClick={() => setSelectedChart("ISSUES")}
               type="button"
             >
@@ -183,7 +186,9 @@ export const AveragePerMonthChart = (props: AveragePerMonthChartProps) => {
               {props.issueList.length}
             </button>
             <button
-              className={`wizard ${selectedChart === 'PRS' ? "select" : "unselected"}`}
+              className={`wizard ${
+                selectedChart === "PRS" ? "select" : "unselected"
+              }`}
               onClick={() => setSelectedChart("PRS")}
               type="button"
             >
@@ -193,29 +198,38 @@ export const AveragePerMonthChart = (props: AveragePerMonthChartProps) => {
           </div>
         </div>
 
-      <div className="col-sm-12">
-      {selectedChart === "ISSUES" ? (
-          <VerticalChart
-            chartId="issue-by-month-chart"
-            chartData={props.issueList}
-            buildChartFunction={buildMonthIssueChartData}
-          ></VerticalChart>
-        ) : (
-          <VerticalChart
-            chartId="pr-by-month-chart"
-            chartData={props.pullRequestList}
-            buildChartFunction={buildMonthPRData}
-          ></VerticalChart>
-        )}
-      </div>
-       
+        <div className="col-sm-12">
+          {selectedChart === "ISSUES" ? (
+            <VerticalChart
+              chartId="issue-by-month-chart"
+              chartData={props.issueList}
+              buildChartFunction={buildMonthIssueChartData}
+            ></VerticalChart>
+          ) : (
+            <VerticalChart
+              chartId="pr-by-month-chart"
+              chartData={props.pullRequestList}
+              buildChartFunction={buildMonthPRData}
+            ></VerticalChart>
+          )}
+        </div>
       </>
     );
   }
 
   function loadChartData() {
-    return props.issueList.length ? loadSelectedChart() : <h1>No Data</h1>;
+    return props.issueList.length ? (
+      loadSelectedChart()
+    ) : (
+      <div className="col-sm-12 averagePerMonthChart">
+      <NoDataDisplay></NoDataDisplay>
+      </div>
+    );
   }
 
-  return <>{loadChartData()}</>;
+  return (
+    <>
+     {loadChartData()}
+    </>
+  );
 };
