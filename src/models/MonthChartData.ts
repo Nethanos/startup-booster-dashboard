@@ -18,10 +18,12 @@ class MonthChartPerDay {
     day: Date;
     totalPullRequestsOrIssuesOpened: number;
     totalPullRequestsOrIssuesClosed: number;
+    totalPullRequestsMerged: number;
 
     constructor() {
         this.day = new Date();
         this.totalPullRequestsOrIssuesClosed = 0;
         this.totalPullRequestsOrIssuesOpened = 0;
+        this.totalPullRequestsMerged = 0;
     }
 }
