@@ -91,20 +91,7 @@ function buildChartOptions(pullRequestChartData: any): ChartConfiguration {
 
 export const PullRequestVerticalChart = (props: PullRequestChartProps) => {
 
-  /**
-   * @description responsible for calculate de average and format to days
-   * @param prChart - type of chart model(small, medium or large)
-   * @param pr - pull request data
-   */
-  function calculatePrSizeAndTime( prChart: PullRequestChart, pr: MergedPullRequest ) {
-    prChart.pullRequestTotalCount++;
-    prChart.pullRequestTimeInMili =
-      new Date(pr.mergedAt).getTime() - new Date(pr.createdAt).getTime();
-    prChart.pullRequestTimeString = convertMiliseconds(prChart.pullRequestTimeInMili, "h" ).toString();
-  }
-
   const [pullRequestChartData, setPullRequestChartData] = useState( {} as PullRequestListBySize);
-
 
   /**
    * @description responsible for spread the full pull request data in a
@@ -116,18 +103,37 @@ export const PullRequestVerticalChart = (props: PullRequestChartProps) => {
   ): void {
     let pullRequestData = new PullRequestListBySize();
 
+    let smlPrQtd = 0;
+    let mdPrQtd = 0;
+    let lgPrQtd = 0
+
+    let smalPrTimeInMili = 0;
+    let mdPrTimeInMili = 0;
+    let lgPrTimeInMili = 0;
+
     const { smallPullRequest: smlPr, mediumPullRequest: mdPr, largePullRequest: lgPr } = pullRequestData;
 
-    pullRequestList.forEach((pr) => {
+    pullRequestList.forEach(pr => {
       const prSize = pr.additions + pr.deletions;
-      if (prSize < 100) {
-        calculatePrSizeAndTime(smlPr, pr);
-      } else if (prSize < 1000) {
-        calculatePrSizeAndTime(mdPr, pr);
+
+      if(prSize < 100) {
+        smlPrQtd++;
+        smalPrTimeInMili += (new Date(pr.mergedAt).getTime() - new Date(pr.createdAt).getTime())
+      }else if(prSize  < 1000){
+         mdPrQtd++;
+         mdPrTimeInMili  += (new Date(pr.mergedAt).getTime() - new Date(pr.createdAt).getTime());
       } else {
-        calculatePrSizeAndTime(lgPr, pr);
+        lgPrQtd++;
+        lgPrTimeInMili  += (new Date(pr.mergedAt).getTime() - new Date(pr.createdAt).getTime());
       }
     });
+
+    smlPr.pullRequestTotalCount = smlPrQtd;
+    mdPr.pullRequestTotalCount = mdPrQtd;
+    lgPr.pullRequestTotalCount = lgPrQtd;
+    smlPr.pullRequestTimeString = convertMiliseconds(smalPrTimeInMili/smlPrQtd, "h").toString();
+    mdPr.pullRequestTimeString = convertMiliseconds(mdPrTimeInMili/mdPrQtd, "h").toString();
+    lgPr.pullRequestTimeString = convertMiliseconds(lgPrTimeInMili/lgPrQtd, "h").toString();
 
 
     setPullRequestChartData(pullRequestData);
