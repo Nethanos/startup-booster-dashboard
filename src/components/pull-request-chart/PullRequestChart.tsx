@@ -2,10 +2,7 @@ import { ChartConfiguration } from "chart.js";
 import React, { useEffect, useState } from "react";
 import convertMiliseconds from "../../helpers/DateConverter";
 import { DetailedMergedPullRequest } from "../../models/DetailedMergedPullRequest";
-import {
-  PullRequestChart,
-  PullRequestListBySize,
-} from "../../models/PullRequestListBySize";
+import {PullRequestChart,PullRequestListBySize } from "../../models/PullRequestListBySize";
 import { VerticalChart } from "../vertical-chart/VerticalChart";
 import './PullRequestChart.scss'
 
@@ -14,16 +11,11 @@ type PullRequestChartProps = {
 };
 
 function buildChartOptions(pullRequestChartData: any): ChartConfiguration {
-  const {
-    smallPullRequest,
-    mediumPullRequest,
-    largePullRequest,
-  } = pullRequestChartData;
+  
+  const { smallPullRequest, mediumPullRequest, largePullRequest} = pullRequestChartData;
 
   const labels = ["Small", "Medium", "Large"];
   const dataset = [smallPullRequest, mediumPullRequest, largePullRequest];
-
-  console.log(dataset);
 
   return {
     type: "bar",
@@ -91,33 +83,21 @@ function buildChartOptions(pullRequestChartData: any): ChartConfiguration {
 }
 
 export const PullRequestVerticalChart = (props: PullRequestChartProps) => {
-  function calculatePrSizeAndTime(
-    prChart: PullRequestChart,
-    pr: DetailedMergedPullRequest
-  ) {
+  function calculatePrSizeAndTime( prChart: PullRequestChart, pr: DetailedMergedPullRequest ) {
     prChart.pullRequestTotalCount++; //totalCount
     prChart.pullRequestTimeInMili =
       new Date(pr.mergedAt).getTime() - new Date(pr.createdAt).getTime();
-    prChart.pullRequestTimeString = convertMiliseconds(
-      prChart.pullRequestTimeInMili,
-      "h"
-    ).toString();
+    prChart.pullRequestTimeString = convertMiliseconds(prChart.pullRequestTimeInMili, "h" ).toString();
   }
 
-  const [pullRequestChartData, setPullRequestChartData] = useState(
-    {} as PullRequestListBySize
-  );
+  const [pullRequestChartData, setPullRequestChartData] = useState( {} as PullRequestListBySize);
 
   function spreadPullRequestsBySize(
     pullRequestList: Array<DetailedMergedPullRequest>
   ): void {
     let pullRequestData = new PullRequestListBySize();
 
-    const {
-      smallPullRequest: smlPr,
-      mediumPullRequest: mdPr,
-      largePullRequest: lgPr,
-    } = pullRequestData;
+    const { smallPullRequest: smlPr, mediumPullRequest: mdPr, largePullRequest: lgPr } = pullRequestData;
 
     pullRequestList.forEach((pr) => {
       const prSize = pr.additions + pr.deletions;
