@@ -188,12 +188,12 @@ export const AveragePerMonthChart = (props: AveragePerMonthChartProps) => {
         <div className="monthHeader col-sm-12">
           <div className="chartTitle"> Month Summary </div>
           <div
-            className="btn-group container"
+            className="btn-group row"
             role="group"
             aria-label="Basic example"
           >
             <button
-              className={`col-md-2 wizard ${
+              className={`wizard ${
                 selectedChart === "ISSUES" ? "selected" : "unselected"
               }`}
               onClick={() => setSelectedChart("ISSUES")}
