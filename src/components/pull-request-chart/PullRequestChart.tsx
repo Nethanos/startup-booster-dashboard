@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import convertMiliseconds from "../../helpers/DateConverter";
 import { DetailedMergedPullRequest } from "../../models/DetailedMergedPullRequest";
 import {PullRequestChart,PullRequestListBySize } from "../../models/PullRequestListBySize";
+import { NoDataDisplay } from "../no-data/NoData";
 import { VerticalChart } from "../vertical-chart/VerticalChart";
 import './PullRequestChart.scss'
 
@@ -131,17 +132,20 @@ export const PullRequestVerticalChart = (props: PullRequestChartProps) => {
         ></VerticalChart>
       </>
     ) : (
-      <div className="d-flex justify-content-center d-flex align-items-center">
-        <div className="noInfoLabel">
-        <h2>NO INFO TO SHOW. PLEASE SEARCH A REPO.</h2>
-        </div>
+      <div className="noDataField">
+     <NoDataDisplay></NoDataDisplay>
+
       </div>
     );
   };
 
   return (
     <>
-        {loadDataChart()}
+    <div className="col-sm-12 prChart">
+
+    {loadDataChart()}
+
+    </div>
     </>
   );
 };
