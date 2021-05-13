@@ -1,6 +1,5 @@
-# Liferay Startup Booster Dashboard
+# Startup Booster Dashboard
 
-This project is relative a Liferay Frontend Mid Developer Challenger.
 
 ## Stack
 - NodeJS
